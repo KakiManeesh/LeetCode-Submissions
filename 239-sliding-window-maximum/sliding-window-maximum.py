@@ -3,16 +3,14 @@ from collections import deque
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
 
-        dq = deque()   # stores indices
+        dq = deque()   
         ans = []
 
         for i in range(len(nums)):
 
-            # remove indices outside window
             while dq and dq[0] <= i - k:
                 dq.popleft()
 
-            # maintain decreasing order
             while dq and nums[dq[-1]] <= nums[i]:
                 dq.pop()
 
