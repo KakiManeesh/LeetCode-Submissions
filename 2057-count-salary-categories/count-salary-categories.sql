@@ -1,27 +1,12 @@
-/*
-select 
-    case
-        when income < 20000  then "Low Salary"
-        when income > 50000  then "High Salary"
-        else "Average Salary"
-    end as category , count(*) as accounts_count
-
-from Accounts
-
-group by category
-*/
-SELECT "Low Salary" AS category, COUNT(*) AS accounts_count
-FROM Accounts
-WHERE income < 20000
-
-union
-
-SELECT "Average Salary" AS category, COUNT(*) AS accounts_count
-FROM Accounts
-WHERE income >= 20000 and income <= 50000
-
-union
-
-SELECT "High Salary" AS category, COUNT(*) AS accounts_count
-FROM Accounts
-WHERE income > 50000
+WITH PrecomputedCounts AS (
+    SELECT 
+        SUM(CASE WHEN income < 20000 THEN 1 ELSE 0 END) AS low_cnt,
+        SUM(CASE WHEN income >= 20000 AND income <= 50000 THEN 1 ELSE 0 END) AS avg_cnt,
+        SUM(CASE WHEN income > 50000 THEN 1 ELSE 0 END) AS high_cnt
+    FROM Accounts
+)
+SELECT 'Low Salary' AS category, low_cnt AS accounts_count FROM PrecomputedCounts
+UNION ALL
+SELECT 'Average Salary' AS category, avg_cnt FROM PrecomputedCounts
+UNION ALL
+SELECT 'High Salary' AS category, high_cnt FROM PrecomputedCounts;
