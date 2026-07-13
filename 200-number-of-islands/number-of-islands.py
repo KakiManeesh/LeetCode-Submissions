@@ -13,20 +13,14 @@ class Solution:
 
             grid[i][j] = '#'
 
-            return (
-                1 +
-                helper(i+1,j)+
-                helper(i-1,j)+
-                helper(i,j+1)+
-                helper(i,j-1)
-            ) 
-
-
+            helper(i+1,j)
+            helper(i-1,j)
+            helper(i,j+1)
+            helper(i,j-1)
         count = 0
         for i in range(n):
             for j in range(m):
-                if helper(i,j) >= 1 :
+                if grid[i][j] == '1' :
                     count += 1
-        for  i in grid:
-            print(i)
+                    helper(i,j)
         return count
