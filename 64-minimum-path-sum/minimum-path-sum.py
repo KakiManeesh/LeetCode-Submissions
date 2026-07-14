@@ -3,11 +3,13 @@ class Solution:
         n = len(grid)
         m = len(grid[0])
 
-        dp =  [[float('inf')]*(m+1) for i in range(n+1)]
-        dp[1][1] = grid[0][0]
+        prev =  [float('inf')]*(m+1)
+        prev[1] = grid[0][0]
         for i in range(1,n+1):
             for j in range(1,m+1):
-                if i ==1 and j == 1 :
+                curr = prev.copy()
+                if i == 1 and j == 1 :
                     continue
-                dp[i][j] = min(dp[i-1][j] ,dp[i][j-1]) + grid[i-1][j-1]
-        return dp[-1][-1]
+                curr[j] = min(prev[j] ,curr[j-1]) + grid[i-1][j-1]
+                prev = curr
+        return curr[-1]
