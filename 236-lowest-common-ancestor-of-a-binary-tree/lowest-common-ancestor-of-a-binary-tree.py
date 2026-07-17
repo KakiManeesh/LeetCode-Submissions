@@ -7,6 +7,8 @@ class Solution:
             nonlocal ans
             if not node :
                 return 0
+            if ans :
+                return 0
             
             left = solve(node.left )
             right = solve(node.right )
@@ -14,6 +16,7 @@ class Solution:
             score = left + right + (node == p) +  (node == q)
             if score == 2 and ans is None:
                 ans = node
+                return 0
 
             return score
         solve(root )
