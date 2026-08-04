@@ -1,9 +1,13 @@
 class Solution:
     def findMissingElements(self, nums: List[int]) -> List[int]:
-        low = min(nums)
-        high = max(nums)
+        nums.sort()
 
-        total = list(range(low,high+1))
-        for i in nums :
-            total.remove(i)
-        return total
+        out = []
+        k = 0
+        for i in range(nums[0],nums[-1]+1) :
+            if i !=  nums[k] :
+                out.append(i)
+            else:
+                k +=1
+        return out
+        
