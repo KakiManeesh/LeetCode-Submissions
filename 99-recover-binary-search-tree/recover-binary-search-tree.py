@@ -9,26 +9,21 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
-        ans = []
-        nodes = []
+        prev = None
+        first,second = None , None
         def solve(node):
-
+            nonlocal prev,first,second
             if not node :
                 return
-            
-            solve(node.left)
-            nodes.append(node)
-            ans.append(node.val)
-            solve(node.right)
-        solve(root)
-        print(ans)
 
-        n  = len(ans)
-        for i in range(n-1,0,-1) :
-            if ans[i-1] > ans[i] :
-                break
-        
-        for j in range(n-1):
-            if ans[j] > ans[j+1] :
-                break
-        nodes[i].val,nodes[j].val  = nodes[j].val,nodes[i].val
+            solve( node.left)
+            if prev and prev.val > node.val:
+                if first is None:
+                    first = prev
+                second = node
+            prev = node
+            solve(node.right)
+
+        solve(root)
+    
+        first.val,second.val = second.val , first.val
