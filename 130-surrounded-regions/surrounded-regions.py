@@ -20,15 +20,13 @@ class Solution:
             if board[i][m-1] == 'O':
                 stack.append((i,m-1))
         while stack :
-            temp = len(stack)
-            for _ in range(temp):
-                i,j = stack.popleft()
-                board[i][j] = '-'
-                neighbour = [(i+1,j),(i,j+1),(i-1,j),(i,j-1)]
+            i,j = stack.popleft()
+            board[i][j] = '-'
+            neighbour = [(i+1,j),(i,j+1),(i-1,j),(i,j-1)]
 
-                for i,j in neighbour :
-                    if i >=0 and j >= 0 and i < n and j < m  and board[i][j]=='O':
-                        stack.append((i,j))
+            for i,j in neighbour :
+                if i >=0 and j >= 0 and i < n and j < m  and board[i][j]=='O':
+                    stack.append((i,j))
         for i in range(n):
             for j in range(m) :
                 if board[i][j] == 'X':
