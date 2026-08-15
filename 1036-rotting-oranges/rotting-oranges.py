@@ -30,11 +30,11 @@ class Solution:
                     (i, j + 1)
                 ]
 
-                for ni, nj in neighbours:
-                    if 0 <= ni < n and 0 <= nj < m and grid[ni][nj] == 1:
-                        queue.append((ni, nj))
-                        grid[ni][nj] = 2
-                        fresh.remove((ni, nj))
+                for i, j in neighbours:
+                    if 0 <= i < n and 0 <= j < m and grid[i][j] == 1:
+                        queue.append((i, j))
+                        grid[i][j] = 2
+                        fresh.remove((i, j))
 
             time += 1
 
